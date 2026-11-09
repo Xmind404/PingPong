@@ -19,7 +19,7 @@ class Ball:
 
 
 
-  def move_by_radius(self, angle_degrees: float, radius: float = None):
+  def move_by_radius(self, angle_degrees: float, paddle1, paddle2, radius: float = None):
     distance = radius if radius is not None else self.speed
 
     angle_radians = math.radians(angle_degrees)
@@ -33,7 +33,6 @@ class Ball:
     self.rect.x = int(self.x)
     self.rect.y = int(self.y)
 
-    # if self.rect.x 
 
     if self.rect.x < 0:
       self.rect.x = 0
@@ -61,7 +60,49 @@ class Ball:
       else:
         self.speed = ball_speed
 
-    if self.rect.y < 0 or self.rect.y > height - ball_height:
+
+
+    else:
+      if self.rect.colliderect(paddle1.rect):
+        self.rect.left = paddle1.rect.right
+        self.x = float(self.rect.x) 
+        if ball_randomized_speed:
+          min_speed = int(ball_speed - (0.5 * ball_speed))  
+          max_speed = int(ball_speed + (0.5 * ball_speed))  
+          self.speed = random.randint(min_speed, max_speed)
+        else:
+          self.speed = ball_speed
+
+        angle_degrees = 180 - angle_degrees
+
+      elif self.rect.colliderect(paddle2.rect):
+        self.rect.right = paddle2.rect.left
+        self.x = float(self.rect.x) 
+        if ball_randomized_speed:
+          min_speed = int(ball_speed - (0.5 * ball_speed))  
+          max_speed = int(ball_speed + (0.5 * ball_speed))  
+          self.speed = random.randint(min_speed, max_speed)
+        else:
+          self.speed = ball_speed
+
+        angle_degrees = 180 - angle_degrees
+
+
+
+    if self.rect.top < 0:
+      self.rect.top = 0
+      self.y = float(self.rect.y)
+      angle_degrees = -angle_degrees
+      if ball_randomized_speed:
+        min_speed = int(ball_speed - (0.5 * ball_speed))  
+        max_speed = int(ball_speed + (0.5 * ball_speed))  
+        self.speed = random.randint(min_speed, max_speed)
+      else:
+        self.speed = ball_speed
+
+    elif self.rect.bottom > height:
+      self.rect.bottom = height
+      self.y = float(self.rect.y)
       angle_degrees = -angle_degrees
       if ball_randomized_speed:
         min_speed = int(ball_speed - (0.5 * ball_speed))  
@@ -69,6 +110,7 @@ class Ball:
         self.speed = random.randint(min_speed, max_speed)
       else:
         self.speed = ball_speed   
+
     return angle_degrees
 
 

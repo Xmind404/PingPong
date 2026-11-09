@@ -47,7 +47,7 @@ def run_game():
     paddle1.draw(screen)
     paddle2.draw(screen)
 
-    ball_angle = ball.move_by_radius(ball_angle)
+    ball_angle = ball.move_by_radius(ball_angle, paddle1, paddle2)
     ball.draw(screen)
 
     pygame.display.flip()
