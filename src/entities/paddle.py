@@ -17,6 +17,5 @@ class Paddle:
     if self.rect.bottom > height:
       self.rect.bottom = height
 
-
   def draw(self, screen):
     pygame.draw.rect(screen, paddle_color, self.rect)

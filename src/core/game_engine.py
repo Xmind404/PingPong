@@ -13,11 +13,11 @@ def run_game():
 
   paddle1 = Paddle(0, height / 2)
   paddle2 = Paddle(width - paddle_width, height / 2)
-  
+  ball = Ball(width/2, height/2)
+  ball_angle = 45.0
+
   screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
   clock = pygame.time.Clock()
-
-
 
   while running == True:
     for event in pygame.event.get():
@@ -47,6 +47,8 @@ def run_game():
     paddle1.draw(screen)
     paddle2.draw(screen)
 
+    ball_angle = ball.move_by_radius(ball_angle)
+    ball.draw(screen)
 
     pygame.display.flip()
     clock.tick(tick_rate)

@@ -12,10 +12,13 @@ tick_rate = 60
 game_speed = 1
 background_color = "white"
 
+ball_randomized_speed = True
+
 
 ball_width = math.floor(width / 50)
 ball_height = math.floor(width / 50)
 ball_color = "black"
+ball_speed = 10
 
 paddle_width = math.floor(width / 50)
 paddle_height = math.floor(height / 10)
