@@ -10,6 +10,7 @@ width = monitor.width
 running = True
 tick_rate = 60
 game_speed = 1
+game_points: list[int] = [0, 0]
 background_color = "white"
 
 ball_randomized_speed = True

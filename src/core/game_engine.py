@@ -1,10 +1,10 @@
-from config import height, width, running, tick_rate, background_color, paddle_width
+from config import height, width, running, tick_rate, background_color, paddle_width, game_points
 
 from entities.ball import Ball
 from entities.paddle import Paddle
+from utils.draw_text import draw_text
 
-
-import pygame as pygame
+import pygame
 
 def run_game():
   global running
@@ -41,9 +41,9 @@ def run_game():
       paddle2.move(-1)
 
 
-
-
     screen.fill(background_color)
+    draw_text(f"{game_points[0]} | {game_points[1]}", pygame.font.SysFont("Arial", 30), (0, 0, 0), width // 2, 0, screen)
+
     paddle1.draw(screen)
     paddle2.draw(screen)
 

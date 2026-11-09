@@ -2,7 +2,7 @@ import pygame
 import math
 import random
 
-from config import ball_width, ball_height, ball_speed, ball_color, width, height, ball_randomized_speed
+from config import ball_width, ball_height, ball_speed, ball_color, width, height, ball_randomized_speed, game_points
 
 class Ball:
   def __init__(self, x, y):
@@ -33,13 +33,52 @@ class Ball:
     self.rect.x = int(self.x)
     self.rect.y = int(self.y)
 
-    if self.rect.x <= 0 or self.rect.x >= width - ball_width:
-      angle_degrees = 180 - angle_degrees
-    if self.rect.y <= 0 or self.rect.y >= height - ball_height:
-      angle_degrees = -angle_degrees
+    # if self.rect.x 
 
+    if self.rect.x < 0:
+      self.rect.x = 0
+      self.x = 0.0
+      angle_degrees = 180 - angle_degrees
+      self.add_points(1)
+
+      if ball_randomized_speed:
+        min_speed = int(ball_speed - (0.5 * ball_speed))  
+        max_speed = int(ball_speed + (0.5 * ball_speed))  
+        self.speed = random.randint(min_speed, max_speed)
+      else:
+        self.speed = ball_speed
+
+    elif self.rect.x > width - ball_width:
+      self.rect.x = width - ball_width
+      self.x = float(self.rect.x)
+      angle_degrees = 180 - angle_degrees
+      self.add_points(0)
+
+      if ball_randomized_speed:
+        min_speed = int(ball_speed - (0.5 * ball_speed))  
+        max_speed = int(ball_speed + (0.5 * ball_speed))  
+        self.speed = random.randint(min_speed, max_speed)
+      else:
+        self.speed = ball_speed
+
+    if self.rect.y < 0 or self.rect.y > height - ball_height:
+      angle_degrees = -angle_degrees
+      if ball_randomized_speed:
+        min_speed = int(ball_speed - (0.5 * ball_speed))  
+        max_speed = int(ball_speed + (0.5 * ball_speed))  
+        self.speed = random.randint(min_speed, max_speed)
+      else:
+        self.speed = ball_speed   
     return angle_degrees
 
+
+
+  def add_points(self, who):
+    global game_points
+    if who == 0:
+      game_points[0] += 1
+    if who == 1:
+      game_points[1] += 1
 
   def draw(self, screen):
     pygame.draw.rect(screen, ball_color, self.rect)
