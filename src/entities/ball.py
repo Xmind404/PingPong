@@ -64,9 +64,19 @@ class Ball:
 
 
     else:
+      keys = pygame.key.get_pressed()
+
       if self.rect.colliderect(paddle1.rect):
         self.rect.left = paddle1.rect.right
         self.x = float(self.rect.x) 
+
+        if keys[pygame.K_w]:
+          angle_degrees -= 15
+          self.rect.y -= distance
+        elif keys[pygame.K_s]:
+          angle_degrees += 15
+          self.rect.y -= distance
+
         if ball_randomized_speed:
           min_speed = int(ball_speed - (0.5 * ball_speed))  
           max_speed = int(ball_speed + (0.5 * ball_speed))  
@@ -76,9 +86,20 @@ class Ball:
 
         angle_degrees = 180 - angle_degrees
 
+
+
       elif self.rect.colliderect(paddle2.rect):
         self.rect.right = paddle2.rect.left
         self.x = float(self.rect.x) 
+
+        if keys[pygame.K_UP]:
+          angle_degrees += 15
+          self.rect.y += distance
+        elif keys[pygame.K_DOWN]:
+          angle_degrees -= 15
+          self.rect.y -= distance
+
+
         if ball_randomized_speed:
           min_speed = int(ball_speed - (0.5 * ball_speed))  
           max_speed = int(ball_speed + (0.5 * ball_speed))  
