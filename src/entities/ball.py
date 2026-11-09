@@ -21,6 +21,9 @@ class Ball:
 
 
   def move_by_radius(self, angle_degrees: float, paddle1, paddle2, radius: float = None):
+    sound = pygame.mixer.Sound("src/data/pong.mp3")
+    sound.set_volume(0.5)
+
     distance = radius if radius is not None else self.speed
 
     angle_radians = math.radians(angle_degrees)
@@ -36,6 +39,7 @@ class Ball:
 
 
     if self.rect.x < 0:
+      sound.play()
       self.rect.x = 0
       self.x = 0.0
       angle_degrees = 180 - angle_degrees
@@ -49,6 +53,7 @@ class Ball:
         self.speed = ball_speed
 
     elif self.rect.x > width - ball_width:
+      sound.play()
       self.rect.x = width - ball_width
       self.x = float(self.rect.x)
       angle_degrees = 180 - angle_degrees
@@ -65,8 +70,8 @@ class Ball:
 
     else:
       keys = pygame.key.get_pressed()
-
       if self.rect.colliderect(paddle1.rect):
+        sound.play()
         self.rect.left = paddle1.rect.right
         self.x = float(self.rect.x) 
 
@@ -89,6 +94,7 @@ class Ball:
 
 
       elif self.rect.colliderect(paddle2.rect):
+        sound.play()
         self.rect.right = paddle2.rect.left
         self.x = float(self.rect.x) 
 
@@ -112,6 +118,7 @@ class Ball:
 
 
     if self.rect.top < 0:
+      sound.play()
       self.rect.top = 0
       self.y = float(self.rect.y)
       angle_degrees = -angle_degrees
@@ -123,6 +130,7 @@ class Ball:
         self.speed = ball_speed
 
     elif self.rect.bottom > height:
+      sound.play()
       self.rect.bottom = height
       self.y = float(self.rect.y)
       angle_degrees = -angle_degrees
