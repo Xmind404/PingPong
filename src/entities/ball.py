@@ -9,7 +9,8 @@ class Ball:
     self.x = float(x)
     self.y = float(y)
     self.rect = pygame.Rect(int(self.x), int(self.y), ball_width, ball_height)
-    
+    self.visible = True
+
     if ball_randomized_speed:
       min_speed = int(ball_speed - (0.5 * ball_speed))  
       max_speed = int(ball_speed + (0.5 * ball_speed))  
@@ -123,4 +124,5 @@ class Ball:
       game_points[1] += 1
 
   def draw(self, screen):
-    pygame.draw.rect(screen, ball_color, self.rect)
+    if self.visible:
+      pygame.draw.rect(screen, ball_color, self.rect)
